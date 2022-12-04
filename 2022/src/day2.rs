@@ -19,45 +19,36 @@ pub fn solution() {
             if x[1] == "Y" {
                 max += 8;
                 part2 += 4;
-            }
-            else if x[1] == "X" {
+            } else if x[1] == "X" {
                 max += 4;
                 part2 += 3;
-            }
-            else {
+            } else {
                 max += 3;
                 part2 += 8;
             }
-        }
-        else if x[0] == "B" {
+        } else if x[0] == "B" {
             if x[1] == "Z" {
                 max += 9;
                 part2 += 9;
-            }
-            else if x[1] == "Y" {
+            } else if x[1] == "Y" {
                 max += 5;
                 part2 += 5;
-            }
-            else {
+            } else {
                 max += 1;
                 part2 += 1;
             }
-        }
-        else if x[0] == "C" {
+        } else if x[0] == "C" {
             if x[1] == "X" {
                 max += 7;
                 part2 += 2;
-            }
-            else if x[1] == "Z" {
+            } else if x[1] == "Z" {
                 max += 6;
                 part2 += 7;
-            }
-            else {
+            } else {
                 max += 2;
                 part2 += 6;
             }
         }
-
     }
 
     println!("{max} {part2}");
