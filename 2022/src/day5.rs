@@ -1,4 +1,4 @@
-fn parse_line(line : &str) -> Option<(i32, i32, i32)> {
+fn parse_line(line: &str) -> Option<(i32, i32, i32)> {
     let mut iter = line.split_ascii_whitespace();
     iter.next();
     let a = iter.next()?.parse().ok()?;
@@ -6,10 +6,10 @@ fn parse_line(line : &str) -> Option<(i32, i32, i32)> {
     let b = iter.next()?.parse().ok()?;
     iter.next();
     let c = iter.next()?.parse().ok()?;
-    Some((a,b,c))
+    Some((a, b, c))
 }
 
-fn create_stacks(stack : &mut Vec<Vec<char>>){
+fn create_stacks(stack: &mut Vec<Vec<char>>) {
     let s = vec!['Q', 'S', 'W', 'C', 'Z', 'V', 'F', 'T'];
     let s2 = vec!['Q', 'R', 'B'];
     let s3 = vec!['B', 'Z', 'T', 'Q', 'P', 'M', 'S'];
@@ -31,27 +31,32 @@ fn create_stacks(stack : &mut Vec<Vec<char>>){
 }
 
 pub fn solution() {
-    let mut stacks : Vec<Vec<char>>= Vec::new();
+    let mut stacks: Vec<Vec<char>> = Vec::new();
     create_stacks(&mut stacks);
     let mut stacks2 = stacks.clone();
 
-
-    let input : Vec<(i32, i32, i32)> = include_str!("../input/5_moves.txt")
+    let input: Vec<(i32, i32, i32)> = include_str!("../input/5_moves.txt")
         .split("\n")
-        .map(|line|  {if line.len() > 0 {parse_line(&line).unwrap()} else {(-1,-1,-1)}})
+        .map(|line| {
+            if line.len() > 0 {
+                parse_line(&line).unwrap()
+            } else {
+                (-1, -1, -1)
+            }
+        })
         .collect();
 
-    for m in input.clone() {
-        if m.0 > 0 {
-            for _ in 0..m.0 {
-                let popped = stacks[(m.1 - 1) as usize].pop().unwrap();
-                stacks[(m.2 - 1) as usize].push(popped);
-            }
+    for (num, from, to) in input.clone() {
+        for _ in 0..num {
+            let popped = stacks[(from - 1) as usize].pop().unwrap();
+            stacks[(to - 1) as usize].push(popped);
         }
     }
 
-    let part1 = stacks.iter()
-        .map(|l| l.last().unwrap()).collect::<String>();
+    let part1 = stacks
+        .iter()
+        .map(|l| l.last().unwrap())
+        .collect::<String>();
 
     for (num, from, to) in input {
         if num > 0 {
@@ -63,7 +68,9 @@ pub fn solution() {
             }
         }
     }
-    let part2 = stacks2.iter()
-        .map(|l| l.last().unwrap()).collect::<String>();
+    let part2 = stacks2
+        .iter()
+        .map(|l| l.last().unwrap())
+        .collect::<String>();
     println!("{part1} {part2}");
 }
