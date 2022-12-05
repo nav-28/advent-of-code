@@ -53,15 +53,13 @@ pub fn solution() {
     let part1 = stacks.iter()
         .map(|l| l.last().unwrap()).collect::<String>();
 
-    for m in input {
-        if m.0 > 0 {
-            let mut temp : Vec<char> = Vec::new();
-            for _ in 0..m.0 {
-                temp.push(stacks2[(m.1 - 1) as usize].pop().unwrap());
-            }
-            for _ in 0..m.0{
-                let popped = temp.pop().unwrap();
-                stacks2[(m.2 - 1) as usize].push(popped);
+    for (num, from, to) in input {
+        if num > 0 {
+            let len = stacks2[(to - 1) as usize].len() + num as usize;
+            stacks2[(to - 1) as usize].resize(len, 'A');
+            for i in 0..num {
+                let popped = stacks2[(from - 1) as usize].pop().unwrap();
+                stacks2[(to - 1) as usize][len - 1 - i as usize] = popped;
             }
         }
     }
